@@ -11,6 +11,7 @@ const Upload = () => {
   const [uploadStatus, setUploadStatus] = useState(UploadStatus.FILEUNSELECTED);
   const [downloadUrl, setDownloadUrl] = useState(null)
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadTtl, setUploadTtl] = useState();
 
   function changeHandler(event) {
     if (event.target.files.length > 0) {
@@ -37,8 +38,9 @@ const Upload = () => {
       }).then(res => {
         switch(res.status) {
           case 200:
-            setDownloadUrl(res.data.testUrl);
+            setDownloadUrl(res.data.url);
             setUploadStatus(UploadStatus.UPLOADSUCCESS);
+            setUploadTtl(res.data.ttl)
             return;
           default:
             setUploadStatus(UploadStatus.UPLOADFAILED);
@@ -59,14 +61,14 @@ const Upload = () => {
 
   function renderForm() {
     switch(uploadStatus) {
-      case UploadStatus.UPLOADFAILED:
-        return <UploadForm changeHandler={changeHandler} uploadFile={uploadFile} uploadStatus={uploadStatus} selectedFile={selectedFile}/>
       case UploadStatus.UPLOADSUCCESS:
-        return <UploadSuccess downloadUrl={downloadUrl} copyUrl={copyUrl}/>
+        return <UploadSuccess downloadUrl={downloadUrl} copyUrl={copyUrl} ttl={uploadTtl}/>
       case UploadStatus.UPLOADING:
         return <Uploading uploadProgress={uploadProgress} selectedFile={selectedFile}/>
+      case UploadStatus.UPLOADFAILED:
       case UploadStatus.FILESELECTED:
       case UploadStatus.FILEUNSELECTED:
+      default:
         return <UploadForm changeHandler={changeHandler} uploadFile={uploadFile} uploadStatus={uploadStatus} selectedFile={selectedFile}/>
     }
   } 

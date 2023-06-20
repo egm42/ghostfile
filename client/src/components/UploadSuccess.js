@@ -1,9 +1,14 @@
-const UploadSuccess = ({downloadUrl, copyUrl}) => {
+const UploadSuccess = ({downloadUrl, copyUrl, ttl }) => {
   return (
     <fieldset className='box'>
-      <div className='is-size-5 has-text-centered has-text-weight-semibold'>
+      <div className='is-size-4 has-text-centered has-text-weight-semibold'>
         <label>
         Copy and share link
+        </label>
+      </div>
+      <div className='is-size-6 has-text-centered has-text-primary-dark'>
+        <label>
+        File will expire after: {new Date(ttl).toLocaleString()}
         </label>
       </div>
       <br/>
@@ -15,8 +20,8 @@ const UploadSuccess = ({downloadUrl, copyUrl}) => {
         </p>
         <div className='field-body'>
           <div className='field'>
-            <p className='control'>
-              <input className='input is-static is-size-6 has-text-weight-semibold is-family-code' value={downloadUrl} readOnly/>
+            <p className='control' onClick={copyUrl}>
+              <input className='input is-size-6 has-text-weight-semibold is-family-code' value={downloadUrl} readOnly/>
             </p>
           </div>
         </div>

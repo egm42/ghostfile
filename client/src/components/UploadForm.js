@@ -10,6 +10,11 @@ const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile}) => 
         Select and upload a file to create a one-time download link
         </label>
       </div>
+      <div className='is-size-6 has-text-centered'>
+        <label className='has-text-primary-dark'>
+        Files expire after 7 days
+        </label>
+      </div>
       <br/>
       <div className='file is-large is-centered'>
         <label className='file-label'>
