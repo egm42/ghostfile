@@ -62,9 +62,9 @@ const deleteWasabiFile = (key) => {
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+console.log('here');
 let mongoURI = process.env.MONGODB_URI.replace('<username>', process.env.MONGODB_USER).replace('<password>', process.env.MONGODB_PASSWORD);
-
+console.log('here2');
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(mongoURI, {
   serverApi: {
@@ -73,7 +73,7 @@ const client = new MongoClient(mongoURI, {
     deprecationErrors: true,
   }
 });
-
+console.log('here3');
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
