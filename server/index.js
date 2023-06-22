@@ -186,8 +186,7 @@ function getDownloadUrl(key) {
   if (env == 'development') {
     return `http://localhost:3000/download?id=${key}`
   } else {
-    return `https://ghostfile-d086612689da.herokuapp.com/download?id=${key}`
-    // return `https://www.ghostfile.io/download?id=${key}`
+    return `https://www.ghostfile.io/download?id=${key}`
   }
 }
 
