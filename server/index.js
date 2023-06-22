@@ -77,27 +77,25 @@ const client = new MongoClient(mongoURI, {
   }
 });
 
-// async function run() {
-//   try {
-//     // Connect the client to the server	(optional starting in v4.7)
-//     await client.connect();
-//     // Send a ping to confirm a successful connection
-//     await client.db("admin").command({ ping: 1 });
-//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     // await client.close();
-//   }
-// }
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    // await client.close();
+  }
+}
 
-// run().catch(console.dir);
+run().catch(console.dir);
 
-await client.connect();
 
 async function addFileEntry(file) {
   try {
     console.log('Adding mongo entry: ', file.key)
-    await client.connect();
     const col = client.db("ghostfile").collection("files");
     col.insertOne(file);
   } catch (e) {
@@ -108,7 +106,6 @@ async function addFileEntry(file) {
 async function getFileEntry(id) {
   try {
     console.log("Geting entry details: ", id);
-    await client.connect();
     const col = client.db("ghostfile").collection("files");
     const query = {"key": id};
     const cursor = col.findOne(query);
@@ -122,7 +119,6 @@ async function getFileEntry(id) {
 async function deleteMongoFile(id) {
   try {
     console.log("Deleting mongo entry: ", id)
-    await client.connect();
     const col = client.db("ghostfile").collection("files");
     const query = {"key": id};
     const cursor = col.deleteOne(query);
@@ -190,7 +186,8 @@ function getDownloadUrl(key) {
   if (env == 'development') {
     return `http://localhost:3000/download?id=${key}`
   } else {
-    return `https://www.ghostfile.io/download?id=${key}`
+    return `https://ghostfile-d086612689da.herokuapp.com/download?id=${key}`
+    // return `https://www.ghostfile.io/download?id=${key}`
   }
 }
 
