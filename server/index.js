@@ -4,9 +4,10 @@ const aws = require('aws-sdk');
 const multerS3 = require('multer-s3');
 const crypto = require("crypto");
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const path = require('path');
 require('dotenv').config();
 
-const PORT = process.env.SERVER_PORT || 3001;
+const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || 'development'
 
 aws.config.update({
@@ -60,8 +61,10 @@ const deleteWasabiFile = (key) => {
 }
 
 const app = express();
+const server = require('http').createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 let mongoURI = process.env.MONGODB_URI.replace('<username>', process.env.MONGODB_USER).replace('<password>', process.env.MONGODB_PASSWORD);
 
@@ -88,6 +91,7 @@ async function run() {
 }
 
 run().catch(console.dir);
+
 
 async function addFileEntry(file) {
   try {
@@ -130,14 +134,14 @@ function deleteFile(id) {
   deleteMongoFile(id);
 }
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({
     message: 'GhostFile server is online!',
     port: process.env.SERVER_PORT
   });
 });
 
-app.get('/download', (req, res) => {
+app.get('/api/delete', (req, res) => {
   console.log('File download requested: ', req.query.id);
   console.log(req.query.id);
   deleteFile(req.query.id);
@@ -146,7 +150,7 @@ app.get('/download', (req, res) => {
   })
 });
 
-app.get('/details', (req, res) => {
+app.get('/api/details', (req, res) => {
   try {
     getFileEntry(req.query.id).then((result) => {
       const signedUrl = presignedUpload(req.query.id, result.originalname)
@@ -186,7 +190,7 @@ function getDownloadUrl(key) {
   }
 }
 
-app.post("/upload", upload.single('file'), (req, res) => {
+app.post("/api/upload", upload.single('file'), (req, res) => {
   try {
     let file = req.file;
     file['ttl'] = new Date(Date.now() + 604800000); // Files expire in 7 days
@@ -202,6 +206,11 @@ app.post("/upload", upload.single('file'), (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+})
+
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// });
+server.listen(port, () => console.log("Server is running on port: ", port));

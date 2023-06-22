@@ -28,7 +28,7 @@ const Upload = () => {
   function uploadFile(e) {
     if (uploadStatus === UploadStatus.FILESELECTED) {
       setUploadStatus(UploadStatus.UPLOADING);
-      axios.post('/upload', {
+      axios.post('/api/upload', {
         file: selectedFile
       }, {
         headers: {
@@ -52,7 +52,6 @@ const Upload = () => {
 
   function copyUrl() {
     try {
-      console.log("testtest")
       navigator.clipboard.writeText(downloadUrl);
     } catch (e) {
       console.log(e);
