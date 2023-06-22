@@ -184,9 +184,9 @@ app.get('/api/details', (req, res) => {
 
 function getDownloadUrl(key) {
   if (env == 'development') {
-    return `http://localhost:3000/download?id=${key}`
+    return `/download?id=${key}`
   } else {
-    return `https://www.ghostfile.io/download?id=${key}`
+    return `/download?id=${key}`
   }
 }
 
