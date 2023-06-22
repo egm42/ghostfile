@@ -17,7 +17,7 @@ const App = () => {
   const [downloadProgress, setDownloadProgress] = useState(0);
 
   function getFileDetails(fileId) {
-    axios.get('/details', 
+    axios.get('/api/details', 
     { params: { id: fileId } })
     .then(res => {
       if (res.data.message === 'File found') {
@@ -52,7 +52,7 @@ const App = () => {
       document.body.appendChild(link);
       link.click();
     }).finally(() => {
-      axios.get('/delete', {
+      axios.get('/api/delete', {
         params: { id: downloadId }
       });
       setDownloadStatus(DownloadStatus.DOWNLOADSUCCESS);

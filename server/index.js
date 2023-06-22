@@ -66,9 +66,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
-console.log('here');
 let mongoURI = process.env.MONGODB_URI.replace('<username>', process.env.MONGODB_USER).replace('<password>', process.env.MONGODB_PASSWORD);
-console.log('here2');
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(mongoURI, {
   serverApi: {
@@ -77,7 +76,7 @@ const client = new MongoClient(mongoURI, {
     deprecationErrors: true,
   }
 });
-console.log('here3');
+
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -134,14 +133,14 @@ function deleteFile(id) {
   deleteMongoFile(id);
 }
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({
     message: 'GhostFile server is online!',
     port: process.env.SERVER_PORT
   });
 });
 
-app.get('/delete', (req, res) => {
+app.get('/api/delete', (req, res) => {
   console.log('File download requested: ', req.query.id);
   console.log(req.query.id);
   deleteFile(req.query.id);
@@ -150,7 +149,7 @@ app.get('/delete', (req, res) => {
   })
 });
 
-app.get('/details', (req, res) => {
+app.get('/api/details', (req, res) => {
   try {
     getFileEntry(req.query.id).then((result) => {
       const signedUrl = presignedUpload(req.query.id, result.originalname)
@@ -190,7 +189,7 @@ function getDownloadUrl(key) {
   }
 }
 
-app.post("/upload", upload.single('file'), (req, res) => {
+app.post("/api/upload", upload.single('file'), (req, res) => {
   try {
     let file = req.file;
     file['ttl'] = new Date(Date.now() + 604800000); // Files expire in 7 days
