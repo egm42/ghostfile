@@ -62,6 +62,8 @@ const deleteWasabiFile = (key) => {
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
+
 console.log('here');
 let mongoURI = process.env.MONGODB_URI.replace('<username>', process.env.MONGODB_USER).replace('<password>', process.env.MONGODB_PASSWORD);
 console.log('here2');
