@@ -95,6 +95,7 @@ run().catch(console.dir);
 async function addFileEntry(file) {
   try {
     console.log('Adding mongo entry: ', file.key)
+    await client.connect();
     const col = client.db("ghostfile").collection("files");
     col.insertOne(file);
   } catch (e) {
@@ -105,6 +106,7 @@ async function addFileEntry(file) {
 async function getFileEntry(id) {
   try {
     console.log("Geting entry details: ", id);
+    await client.connect();
     const col = client.db("ghostfile").collection("files");
     const query = {"key": id};
     const cursor = col.findOne(query);
@@ -118,6 +120,7 @@ async function getFileEntry(id) {
 async function deleteMongoFile(id) {
   try {
     console.log("Deleting mongo entry: ", id)
+    await client.connect();
     const col = client.db("ghostfile").collection("files");
     const query = {"key": id};
     const cursor = col.deleteOne(query);
