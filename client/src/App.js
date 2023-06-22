@@ -52,7 +52,7 @@ const App = () => {
       document.body.appendChild(link);
       link.click();
     }).finally(() => {
-      axios.get('/download', {
+      axios.get('/delete', {
         params: { id: downloadId }
       });
       setDownloadStatus(DownloadStatus.DOWNLOADSUCCESS);

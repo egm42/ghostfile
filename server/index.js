@@ -137,7 +137,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/download', (req, res) => {
+app.get('/delete', (req, res) => {
   console.log('File download requested: ', req.query.id);
   console.log(req.query.id);
   deleteFile(req.query.id);
