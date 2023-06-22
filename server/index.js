@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
 
-const PORT = process.env.SERVER_PORT || 3001;
+const PORT = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || 'development'
 
 aws.config.update({
