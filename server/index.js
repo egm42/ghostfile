@@ -4,6 +4,7 @@ const aws = require('aws-sdk');
 const multerS3 = require('multer-s3');
 const crypto = require("crypto");
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const path = require('path');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
