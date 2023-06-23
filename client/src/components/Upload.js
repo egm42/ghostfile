@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-
 import { UploadStatus } from '../constants/UploadStatus';
 import UploadForm from './UploadForm';
 import Uploading from './Uploading';
@@ -38,7 +37,7 @@ const Upload = () => {
       }).then(res => {
         switch(res.status) {
           case 200:
-            setDownloadUrl(window.location.hostname + res.data.url);
+            setDownloadUrl(window.location.origin + res.data.url);
             setUploadStatus(UploadStatus.UPLOADSUCCESS);
             setUploadTtl(res.data.ttl)
             return;
@@ -75,6 +74,7 @@ const Upload = () => {
   return (
     <div className='columns is-centered is-gapless'>
       <div className='column is-four-fifths'>
+        <br/>
         <br/>
         {renderForm()}
       </div>

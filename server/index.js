@@ -7,7 +7,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const path = require('path');
 require('dotenv').config();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'development'
 
 aws.config.update({
@@ -183,11 +183,7 @@ app.get('/api/details', (req, res) => {
 });
 
 function getDownloadUrl(key) {
-  if (env == 'development') {
-    return `/download?id=${key}`
-  } else {
-    return `/download?id=${key}`
-  }
+  return `/download?id=${key}`
 }
 
 app.post("/api/upload", upload.single('file'), (req, res) => {

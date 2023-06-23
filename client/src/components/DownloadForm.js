@@ -1,11 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
-
 const DownloadForm = ({ downloadFileName, downloadFile, ttl }) => {
   return (
     <form className='box'>
       <div className='is-size-5 has-text-centered'>
-        <FontAwesomeIcon icon={faFile} />
+        <i class="fa-solid fa-file"></i>
         <label>
           {" " + downloadFileName}
         </label>

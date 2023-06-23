@@ -32,6 +32,7 @@ class Download extends React.Component {
       <div className='columns is-centered is-gapless'>
         <div className='column is-four-fifths'>
           <br/>
+          <br/>
           {this.renderForm()}
         </div>
       </div>
