@@ -7,7 +7,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const path = require('path');
 require('dotenv').config();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'development'
 
 aws.config.update({

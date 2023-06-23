@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Download from './pages/Download';
 import Upload from './components/Upload';
 import { DownloadStatus } from './constants/DownloadStatus';
+import Footer from './components/Footer';
 
 import 'bulma/css/bulma.min.css';
 
@@ -34,7 +35,6 @@ const App = () => {
 
   function onDownloadProgress(e) {
     const percent = Math.floor((e.loaded * 100) / e.total);
-    console.log(percent)
     setDownloadProgress(percent);
   }
 
@@ -44,7 +44,6 @@ const App = () => {
     axios.get(s3downloadUrl, {
       onDownloadProgress
     }).then((res) => {
-      console.log(res)
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -79,6 +78,7 @@ const App = () => {
           <Route path="/" element={<Upload />}/>
         </Routes>
       </BrowserRouter>
+      <Footer/>
     </div>
   )
 }
