@@ -183,11 +183,7 @@ app.get('/api/details', (req, res) => {
 });
 
 function getDownloadUrl(key) {
-  if (env == 'development') {
-    return `/download?id=${key}`
-  } else {
-    return `/download?id=${key}`
-  }
+  return `/download?id=${key}`
 }
 
 app.post("/api/upload", upload.single('file'), (req, res) => {

@@ -37,7 +37,7 @@ const Upload = () => {
       }).then(res => {
         switch(res.status) {
           case 200:
-            setDownloadUrl(window.location.href + res.data.url);
+            setDownloadUrl(window.location.origin + res.data.url);
             setUploadStatus(UploadStatus.UPLOADSUCCESS);
             setUploadTtl(res.data.ttl)
             return;

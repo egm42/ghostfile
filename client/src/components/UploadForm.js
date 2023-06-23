@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { UploadStatus } from '../constants/UploadStatus'
 
 const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile}) => {
@@ -21,7 +19,7 @@ const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile}) => 
           <input className='file-input' type='file' name='file' onChange={changeHandler}/>
           <span className='file-cta'>
             <span className='file-icon'>
-              <FontAwesomeIcon icon={faFileUpload} />
+              <i class="fa-solid fa-file"></i>
             </span>
             <span className='file-label'>
               {
