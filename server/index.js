@@ -143,7 +143,6 @@ app.get('/api', (req, res) => {
 
 app.get('/api/delete', (req, res) => {
   console.log('File download requested: ', req.query.id);
-  console.log(req.query.id);
   deleteFile(req.query.id);
   res.json({
     message: "Delete successful"
