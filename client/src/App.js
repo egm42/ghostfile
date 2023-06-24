@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import Download from './pages/Download';
-import Upload from './components/Upload';
+import Upload from './pages/Upload';
 import { DownloadStatus } from './constants/DownloadStatus';
 import Footer from './components/Footer';
 
