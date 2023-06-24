@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { UploadStatus } from '../constants/UploadStatus';
-import UploadForm from './UploadForm';
-import Uploading from './Uploading';
-import UploadSuccess from './UploadSuccess';
+import UploadForm from '../components/UploadForm';
+import Uploading from '../components/Uploading';
+import UploadSuccess from '../components/UploadSuccess';
 
 const Upload = () => {
   const [selectedFile, setSelectedFile] = useState();
@@ -11,11 +11,27 @@ const Upload = () => {
   const [downloadUrl, setDownloadUrl] = useState(null)
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadTtl, setUploadTtl] = useState();
+  const [canUpload, setCanUpload] = useState(false);
+  const [fileSizeError, setFileSizeError] = useState(false);
+
+  const FILE_SIZE_LIMIT = 2147483648;
 
   function changeHandler(event) {
     if (event.target.files.length > 0) {
-      setSelectedFile(event.target.files[0]);
-      setUploadStatus(UploadStatus.FILESELECTED)
+      console.log(event.target.files[0]);
+
+      if (event.target.files[0].size > FILE_SIZE_LIMIT) {
+        setCanUpload(false);
+        setFileSizeError(true);
+        setSelectedFile(null);
+        setUploadStatus(UploadStatus.FILEUNSELECTED)
+
+      } else {
+        setCanUpload(true);
+        setFileSizeError(false);
+        setSelectedFile(event.target.files[0]);
+        setUploadStatus(UploadStatus.FILESELECTED)
+      }
     }
   }
 
@@ -67,7 +83,7 @@ const Upload = () => {
       case UploadStatus.FILESELECTED:
       case UploadStatus.FILEUNSELECTED:
       default:
-        return <UploadForm changeHandler={changeHandler} uploadFile={uploadFile} uploadStatus={uploadStatus} selectedFile={selectedFile}/>
+        return <UploadForm changeHandler={changeHandler} uploadFile={uploadFile} uploadStatus={uploadStatus} selectedFile={selectedFile} canUpload={canUpload} fileSizeError={fileSizeError}/>
     }
   } 
 
