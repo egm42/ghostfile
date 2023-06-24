@@ -153,15 +153,12 @@ app.get('/api/delete', (req, res) => {
 app.get('/api/details', (req, res) => {
   try {
     getFileEntry(req.query.id).then((result) => {
-      const signedUrl = presignedUpload(req.query.id, result.originalname)
       if(result) {
+        const signedUrl = presignedUpload(req.query.id, result.originalname)
+        result['location'] = signedUrl
         res.json({
           message: "File found",
-          fileDetails: {
-            originalname: result.originalname,
-            key: result.key,
-            ttl: result.ttl,
-            location: signedUrl          }
+          fileDetails: result
         });
       } else {
         res.status(404).json({
@@ -197,7 +194,7 @@ app.post("/api/upload", upload.single('file'), (req, res) => {
       url: getDownloadUrl(file.key)
     });
   } catch (e) {
-    console.log(`Failed to save file ${req.file}`, e);
+    console.log('Failed to save file ', e);
     res.status(500).json({message: 'Upload failed'});
   }
 });
@@ -206,7 +203,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 })
 
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
 server.listen(port, () => console.log("Server is running on port: ", port));
