@@ -2,16 +2,25 @@
 
 Create a one time use link to share files. The file is deleted after it is downloaded.
 
-Installing:
+Installing node modules:
 ```
-npm install
 cd client
+npm install
+cd ../server
 npm install
 ```
 
-.env
+Building and running the application:
 ```
-SERVER_PORT=<port>
+cd client
+npm run build
+cd ../server
+npm run dev
+```
+
+Environment variables in `.env` file located in the server folder
+```
+PORT=<port>
 MONGODB_URI=<mongodb uri>
 MONGODB_USER=<mongodb user>
 MONGODB_PASSWORD=<mongodb password>
