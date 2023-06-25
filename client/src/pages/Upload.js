@@ -13,8 +13,22 @@ const Upload = () => {
   const [uploadTtl, setUploadTtl] = useState();
   const [canUpload, setCanUpload] = useState(false);
   const [fileSizeError, setFileSizeError] = useState(false);
-
+  const [fileUploadLastUpdateTime, setFileUploadLastUpdateTime] = useState(new Date());
+  const [fileUploadLastUpdateSize, setFileUploadLastUpdateSize] = useState(0);
+  const [uploadSpeed, setUploadSpeed] = useState("");
   const FILE_SIZE_LIMIT = 2147483648;
+
+  function readableSize(bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) {
+      return 'n/a';
+    }
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    if (i === 0) {
+      return bytes + ' ' + sizes[i];
+    }
+    return (bytes / Math.pow(1024, i)).toFixed(1) + sizes[i];
+};
 
   function changeHandler(event) {
     if (event.target.files.length > 0) {
@@ -34,8 +48,17 @@ const Upload = () => {
   }
 
   function onUploadProgress(e) {
+    const currentTime = new Date();
     const percent = Math.floor((e.loaded * 100) / e.total);
     setUploadProgress(percent);
+
+    const deltaSize = e.loaded - fileUploadLastUpdateSize;
+    const deltaTime = (currentTime - fileUploadLastUpdateTime) / 1000;
+
+    const uploadSpeed = deltaSize / deltaTime
+    setUploadSpeed(readableSize(uploadSpeed) + " / sec");
+    setFileUploadLastUpdateSize(e.loaded);
+    setFileUploadLastUpdateTime(currentTime)
   }
 
   function uploadFile(e) {
@@ -76,7 +99,7 @@ const Upload = () => {
       case UploadStatus.UPLOADSUCCESS:
         return <UploadSuccess downloadUrl={downloadUrl} copyUrl={copyUrl} ttl={uploadTtl}/>
       case UploadStatus.UPLOADING:
-        return <Uploading uploadProgress={uploadProgress} selectedFile={selectedFile}/>
+        return <Uploading uploadSpeed={uploadSpeed} uploadProgress={uploadProgress} selectedFile={selectedFile}/>
       case UploadStatus.UPLOADFAILED:
       case UploadStatus.FILESELECTED:
       case UploadStatus.FILEUNSELECTED:

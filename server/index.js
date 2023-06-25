@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'development'
+const FILE_SIZE_LIMIT = 2147483648;
 
 aws.config.update({
   accessKeyId: process.env.ACCESS_KEY,
@@ -33,7 +34,10 @@ const upload = multer({
       cb(null, createKey());
     },
     acl: 'public-read',
-  })
+  }),
+  limits: {
+    fileSize: FILE_SIZE_LIMIT
+  }
 });
 
 const presignedUpload = (key, originalFilename) => {
