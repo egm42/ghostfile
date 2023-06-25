@@ -32,8 +32,7 @@ const upload = multer({
     bucket: 'ghostfile',
     key: function(req, file, cb) {
       cb(null, createKey());
-    },
-    acl: 'public-read',
+    }
   }),
   limits: {
     fileSize: FILE_SIZE_LIMIT
