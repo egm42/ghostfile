@@ -1,4 +1,4 @@
-const Uploading = ({uploadProgress, selectedFile}) => {
+const Uploading = ({ uploadSpeed, uploadProgress, selectedFile }) => {
   return (
     <section className='box'>
       <div className='container'>
@@ -6,7 +6,12 @@ const Uploading = ({uploadProgress, selectedFile}) => {
           Uploading {selectedFile.name}
         </h3>
         <br/>
-        <progress className="progress is-large is-primary" value={uploadProgress} max="100">{uploadProgress}%</progress>
+        <div>
+          <progress className="progress is-large is-primary" value={uploadProgress} max="100">{uploadProgress}%</progress>
+        </div>
+        <div className="has-text-centered">
+          {uploadSpeed}
+        </div>
       </div>
     </section>
   )
