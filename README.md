@@ -1,8 +1,17 @@
 # ghostfile
 
-Create a one time use link to share files. The file is deleted after it is downloaded.
+This is the source code for [ghostfile.io](ghostfile.io). The functionality of this site is to create a one-time download link for any file(under 2GB). 
 
-Installing node modules:
+This site is still a work in progress.
+
+ __TODO__
+* encrypt files
+* user set expiration
+* multi-file uploads
+
+---
+
+### __Installing node modules__:
 ```
 cd client
 npm install
@@ -10,15 +19,15 @@ cd ../server
 npm install
 ```
 
-Building and running the application:
+### __Building and running the application__:
 ```
 cd client
 npm run build
 cd ../server
-npm run dev
+npm start
 ```
 
-Environment variables in `.env` file located in the server folder
+### __Environment variables in `.env` file located in the server folder__
 ```
 PORT=<port>
 MONGODB_URI=<mongodb uri>
