@@ -36,14 +36,17 @@ const App = () => {
     setDownloadStatus(DownloadStatus.DOWNLOADING);
 
     axios.get(fileDetails.location, {
+      responseType: 'blob',
       onDownloadProgress
     }).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const href = URL.createObjectURL(res.data);
       const link = document.createElement('a');
-      link.href = url;
+      link.href = href;
       link.setAttribute('download', fileDetails.originalname);
       document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(href);
     }).finally(() => {
       axios.get('/api/delete', {
         params: { id: fileDetails.key }
