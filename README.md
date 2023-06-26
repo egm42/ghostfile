@@ -5,9 +5,13 @@ This is the source code for [ghostfile.io](ghostfile.io). The functionality of t
 This site is still a work in progress.
 
  __TODO__
-* encrypt files
+* ~~file ttl~~ - Configured MongoDB and S3 to auto delete files after 7 days
+* ~~file upload limit~~ - Implemented server-side and client-side upload limit to 2GB
+* ~~encrypt files~~ - Implemented server-side encryption using AES256
 * user set expiration
 * multi-file uploads
+* migrate AWS SDK for JavaScript v3
+* unit tests
 
 ---
 
