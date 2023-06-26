@@ -8,7 +8,6 @@ const path = require('path');
 require('dotenv').config();
 
 const port = process.env.PORT || 3000;
-const env = process.env.NODE_ENV || 'development'
 const FILE_SIZE_LIMIT = 2147483648;
 
 aws.config.update({
@@ -32,7 +31,8 @@ const upload = multer({
     bucket: 'ghostfile',
     key: function(req, file, cb) {
       cb(null, createKey());
-    }
+    },
+    serverSideEncryption: 'AES256'
   }),
   limits: {
     fileSize: FILE_SIZE_LIMIT
