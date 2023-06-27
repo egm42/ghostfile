@@ -7,9 +7,9 @@ const DownloadForm = ({ fileDetails, downloadFile }) => {
       <br/>
       <div className='field is-grouped is-grouped-centered' >
         <p className='control'>
-          <a className='button is-primary is-light is-outlined' onClick={downloadFile}>
+          <button className='button is-primary is-light is-outlined' onClick={downloadFile}>
             Download File
-          </a>
+          </button>
         </p>
       </div>
     </form>
