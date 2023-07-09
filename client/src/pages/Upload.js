@@ -33,7 +33,7 @@ const Upload = () => {
   function changeHandler(event) {
     if (event.target.files.length > 0) {
       for (const filee in event.target.files) {
-        // console.log('file size: '+ event.target.files[filee].size);
+        console.log('file size: '+ event.target.files[filee].size);
         // console.log(event.target.files[filee]);
       }
       if (event.target.files[0].size > FILE_SIZE_LIMIT) {

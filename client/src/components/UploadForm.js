@@ -1,4 +1,4 @@
-import { UploadStatus } from '../constants/UploadStatus'
+// import { UploadStatus } from '../constants/UploadStatus'
 
 const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile, canUpload, fileSizeError}) => {
   
@@ -29,7 +29,7 @@ const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile, canU
       </table>
       </content>
     )
-    return (selectedFile.map((file) => <li>{file}</li>));
+    // return (selectedFile.map((file) => <li>{file}</li>));
   }
 
   return (
