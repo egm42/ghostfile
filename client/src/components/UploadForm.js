@@ -42,9 +42,9 @@ const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile, canU
       <br/>
       <div className='field is-grouped is-grouped-centered' onClick={uploadFile} >
         <p className='control'>
-          <a className='button is-primary is-light is-outlined' disabled={!canUpload}>
+          <button className='button is-primary is-light is-outlined' disabled={!canUpload}>
             Upload File
-          </a>
+          </button>
         </p>
       </div>
     </form>

@@ -14,9 +14,9 @@ const UploadSuccess = ({downloadUrl, copyUrl, ttl }) => {
       <br/>
       <div className='field is-grouped'>
         <p className='control'>
-          <a className='button is-success is-light is-outlined' onClick={copyUrl}>
+          <button className='button is-success is-light is-outlined' onClick={copyUrl}>
             Copy
-          </a>
+          </button>
         </p>
         <div className='field-body'>
           <div className='field'>
