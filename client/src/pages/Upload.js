@@ -6,7 +6,7 @@ import Uploading from '../components/Uploading';
 import UploadSuccess from '../components/UploadSuccess';
 
 const Upload = () => {
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState([]);
   const [uploadStatus, setUploadStatus] = useState(UploadStatus.FILEUNSELECTED);
   const [downloadUrl, setDownloadUrl] = useState(null)
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -32,6 +32,10 @@ const Upload = () => {
 
   function changeHandler(event) {
     if (event.target.files.length > 0) {
+      for (const filee in event.target.files) {
+        console.log('file size: '+ event.target.files[filee].size);
+        // console.log(event.target.files[filee]);
+      }
       if (event.target.files[0].size > FILE_SIZE_LIMIT) {
         setCanUpload(false);
         setFileSizeError(true);
@@ -39,9 +43,10 @@ const Upload = () => {
         setUploadStatus(UploadStatus.FILEUNSELECTED)
 
       } else {
+        const files = event.target.files;
         setCanUpload(true);
         setFileSizeError(false);
-        setSelectedFile(event.target.files[0]);
+        setSelectedFile([...files]);
         setUploadStatus(UploadStatus.FILESELECTED)
       }
     }

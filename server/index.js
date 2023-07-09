@@ -7,6 +7,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const path = require('path');
 require('dotenv').config();
 
+const isDev = process.env.ENV ==  "dev";
 const port = process.env.PORT || 3000;
 const FILE_SIZE_LIMIT = 2147483648;
 
@@ -22,7 +23,10 @@ const s3 = new aws.S3({
 });
 
 function createKey() {
-  return crypto.randomBytes(16).toString("hex");
+  const prefix = isDev ? "test-" : "";
+  const key = prefix + crypto.randomBytes(16).toString("hex");
+  console.log("key: " + key);
+  return key;
 }
 
 const upload = multer({
@@ -186,6 +190,8 @@ function getDownloadUrl(key) {
 }
 
 app.post("/api/upload", upload.single('file'), (req, res) => {
+  console.log(req.file);
+  // res.json({req: "test"});
   try {
     let file = req.file;
     file['ttl'] = new Date(Date.now() + 604800000); // Files expire in 7 days

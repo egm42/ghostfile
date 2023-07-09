@@ -1,7 +1,36 @@
-import { UploadStatus } from '../constants/UploadStatus'
+// import { UploadStatus } from '../constants/UploadStatus'
 
 const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile, canUpload, fileSizeError}) => {
   
+  function renderSelectedFiles() {
+    // console.log(selectedFile[0]);
+    // selectedFile.map
+    // return <h1>test</h1>
+    return (
+      <content>
+      <table className='table is-bordered is-narrow is-hoverable is-fullwidth'>
+        <thead>
+          <tr>
+            <th>f</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            selectedFile.map((file) => {
+              return (
+                <tr>
+                  <td>{file.name}</td>
+                </tr>
+              )
+            })
+          }
+
+        </tbody>
+      </table>
+      </content>
+    )
+    // return (selectedFile.map((file) => <li>{file}</li>));
+  }
 
   return (
     <form className='box'>
@@ -18,26 +47,25 @@ const UploadForm = ({changeHandler, uploadFile, uploadStatus, selectedFile, canU
       <br/>
       <div className='file is-large is-centered'>
         <label className='file-label'>
-          <input className='file-input' type='file' name='file' onChange={changeHandler}/>
+          <input className='file-input' type='file' name='file' onChange={changeHandler} multiple/>
           <span className={fileSizeError ? "file-cta has-background-danger-light" : "file-cta"}>
             <span className='file-icon'>
               <i className="fa-solid fa-file"></i>
             </span>
-            <span className='file-label'>
-              {
-                uploadStatus === UploadStatus.FILESELECTED
-                ?
-                selectedFile.name
-                :
-                fileSizeError
-                ?
-                'File over 2GB'
-                :
-                'Select File'
-              }
-            </span>
+            <span className='file-label'>Select File(s)</span>
           </span>
         </label>
+      </div>
+      <div>
+        <div>
+          {
+          selectedFile
+          ?
+          renderSelectedFiles()
+          :
+          ""
+          }
+        </div>
       </div>
       <br/>
       <div className='field is-grouped is-grouped-centered' onClick={uploadFile} >
