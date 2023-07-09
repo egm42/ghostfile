@@ -11,7 +11,7 @@ This site is still a work in progress.
 * user set expiration
 * multi-file uploads
 * migrate AWS SDK for JavaScript v3
-* unit tests
+* unit tests (basic test setup)
 
 ---
 
